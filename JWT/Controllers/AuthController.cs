@@ -104,7 +104,21 @@ namespace JWT.Controllers
                     .FirstOrDefault();
             return Ok(dbUser);
         }
-
+        [HttpPut("updateUser")]
+        public async Task<ActionResult<List<User>>> UpdateHero(UserDTO request)
+        {
+            var dbUser = await dataContext.Users.FindAsync(request.Id);
+            dbUser.Username=request.Username;
+            if(request.Password != "") 
+            {
+                CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                dbUser.PasswordHash = passwordHash;
+                dbUser.PasswordSalt = passwordSalt;
+            }
+            
+            await dataContext.SaveChangesAsync();
+            return Ok(await dataContext.Users.ToListAsync());
+        }
         private static bool IsValid(string email)
         {
             var valid = true;
