@@ -97,6 +97,14 @@ namespace JWT.Controllers
             return Ok(token);
         }
 
+        [HttpPost("getUser")]
+        public async Task<ActionResult<List<User>>> getUser(UserDTO request)
+        {
+            var dbUser = dataContext.Users.Where(b => b.Email == request.Email)
+                    .FirstOrDefault();
+            return Ok(dbUser);
+        }
+
         private static bool IsValid(string email)
         {
             var valid = true;
