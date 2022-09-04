@@ -83,6 +83,10 @@ namespace JWT.Controllers
             {
                 return BadRequest("Wrong password.");
             }
+            if (user.Verified == false)
+            {
+                return BadRequest("Cekajte verifikaciju admina!");
+            }
             string token = CreateToken(dbUser);
             return Ok(token);
         }
