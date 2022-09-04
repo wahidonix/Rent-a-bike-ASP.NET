@@ -88,6 +88,12 @@ namespace JWT.Controllers
                 return BadRequest("Account is not verified by the admin!");
             }
             string token = CreateToken(dbUser);
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.Now.AddDays(7),
+            };
+            Response.Cookies.Append("jwt", token, cookieOptions);
             return Ok(token);
         }
 
