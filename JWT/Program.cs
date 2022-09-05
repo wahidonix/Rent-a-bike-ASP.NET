@@ -1,5 +1,8 @@
 global using JWT.Data;
+using JWT.Repositories;
+using JWT;
 using Microsoft.EntityFrameworkCore;
+using Nest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IRepository<Bike,int>, BikeRepository>();
+builder.Services.AddScoped<IRepository<Station,int>, StationRepository>();
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using JWT.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -14,14 +15,18 @@ namespace JWT.Controllers
     public class AuthController : ControllerBase
     {
         public static User user = new User();
+        public static Bike bikes = new Bike();
 
         private readonly IConfiguration _configuration;
 
         private readonly DataContext dataContext;
 
-        public AuthController(DataContext dataContext, IConfiguration configuration)
+        private readonly IRepository<Bike,int> bikeRepository;
+
+        public AuthController(DataContext dataContext, IConfiguration configuration, IRepository<Bike, int> bikeRepository)
         {
             this.dataContext = dataContext;
+            this.bikeRepository = bikeRepository;
             _configuration = configuration;
         }
 
