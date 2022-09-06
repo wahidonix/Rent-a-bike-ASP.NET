@@ -32,7 +32,6 @@ namespace JWT.Repositories
                 context.Remove(bike);
             }
         }
-
         public async Task Save()
         {
             await context.SaveChangesAsync();

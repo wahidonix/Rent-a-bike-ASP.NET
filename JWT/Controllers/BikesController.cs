@@ -40,6 +40,13 @@ namespace JWT.Controllers
         {
             return Ok(await bikeRepository.GetById(id));
         }
+        [HttpGet("station/{id}")]
+        public async Task<IActionResult> GetBikeNyStationId(int id)
+        {
+            var bikes = await bikeRepository.GetAll();
+            var bikeStation = bikes.Where(x => x.StationId == id).ToList();
+            return Ok(bikeStation);
+        }
 
         // PUT: api/Bikes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
