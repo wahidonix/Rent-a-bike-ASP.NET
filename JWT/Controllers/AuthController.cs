@@ -114,6 +114,7 @@ namespace JWT.Controllers
         {
             var dbUser = await dataContext.Users.FindAsync(request.Id);
             dbUser.Username=request.Username;
+            dbUser.Credits = request.Credits;
             if(request.Password != "") 
             {
                 CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
