@@ -19,6 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepository<Bike,int>, BikeRepository>();
 builder.Services.AddScoped<IRepository<Station,int>, StationRepository>();
+builder.Services.AddScoped<IRepository<History,int>, HistoryRepository>();
 
 var app = builder.Build();
 
