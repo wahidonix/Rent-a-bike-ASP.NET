@@ -13,5 +13,6 @@ namespace JWT.Data
         public DbSet<Bike> Bikes { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<History> Histories { get; set; }
+        public DbSet<Staff> Staffs { get; set; }
     }
 }
