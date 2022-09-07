@@ -48,37 +48,6 @@ namespace JWT.Controllers
             return Ok(bikeStation);
         }
 
-        // PUT: api/Bikes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> PutBike(int id, Bike bike)
-        {
-            if (id != bike.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(bike).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BikeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }*/
-
         // POST: api/Bikes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -97,13 +66,19 @@ namespace JWT.Controllers
             await bikeRepository.Save();
             return Ok("Bike deleted");
         }
+        // PUT: api/bikes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBike(int id, Bike bike)
         {
             var dbBike = await bikeRepository.GetById(id);
-            dbBike.StationId = bike.StationId;
-            dbBike.Repair = bike.Repair;
-            dbBike.Code = bike.Code;
+            if(bike.StationId != 0)
+                dbBike.StationId = bike.StationId;
+            if(bike.Repair != dbBike.Repair)
+                dbBike.Repair = bike.Repair;
+            if(bike.Code!= dbBike.Code && bike.Code != 0 && bike.Code != null)
+                dbBike.Code = bike.Code;
+            if(bike.Available != dbBike.Available)
+                dbBike.Available = bike.Available;
             bikeRepository.Save();
             return Ok(dbBike);
         }
