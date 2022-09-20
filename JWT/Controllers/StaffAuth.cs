@@ -29,12 +29,12 @@ namespace JWT.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> Get()
+        public async Task<ActionResult<List<Staff>>> Get()
         {
-            return Ok(await dataContext.Users.ToListAsync());
+            return Ok(await dataContext.Staffs.ToListAsync());
         }
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(StaffDTO request)
+        public async Task<ActionResult<Staff>> Register(StaffDTO request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
