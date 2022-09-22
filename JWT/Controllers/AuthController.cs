@@ -125,6 +125,16 @@ namespace JWT.Controllers
             await dataContext.SaveChangesAsync();
             return Ok(await dataContext.Users.ToListAsync());
         }
+
+        [HttpPut("validateUser")]
+        public async Task<ActionResult<List<User>>> validateUser(UserDTO request)
+        {
+            var dbUser = await dataContext.Users.FindAsync(request.Id);
+            dbUser.Verified = request.Verified;
+
+            await dataContext.SaveChangesAsync();
+            return Ok(await dataContext.Users.ToListAsync());
+        }
         private static bool IsValid(string email)
         {
             var valid = true;
